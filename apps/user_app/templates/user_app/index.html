@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      div{
+        display: inline-block;
+        width: 40%;
+        border: 2px black solid;
+        vertical-align: top;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    {{user_id}}
+    <div>
+      <h1>Sign Up Here</h1>
+      <form action="{% url 'user:sign_up' %}" method="post">
+        {% csrf_token %}
+              Name: <input type="text" name="name" required><p></p>
+              Username: <input type="text" name="username" required><p></p>
+              Password: <input type="password" name="password" required><p></p>
+              *Password should be at least 8 characters
+              Confirm PW: <input type="password" name="confirm_password" required><p></p>
+              <input type="submit" value="Sign Up">
+        {% if messages %}
+          {% for message in messages %}
+            {% if 'sign_up' in message.tags %}
+               <p>{{message}}</p>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </form>
+    </div>
+
+    <div>
+      <h1>Log In Here</h1>
+      <form action="{% url 'user:log_in' %}" method="post">
+        {% csrf_token %}
+        Username: <input type="text" name="username" required>
+        Password: <input type="password" name="password" required>
+        <input type="submit" value="Log In!">
+        {% if messages %}
+          {% for message in messages %}
+            {% if 'log_in' in message.tags %}
+                <p>{{message}}</p>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </form>
+    </div>
+
+  </body>
+</html>
